@@ -32,6 +32,8 @@ public class Menuski extends JMenuBar {
         ImageIcon imgIcon7 = new ImageIcon(getClass().getResource("icons/delete.png"));
         ImageIcon imgIcon8 = new ImageIcon(getClass().getResource("icons/view.png"));
         ImageIcon imgIcon9 = new ImageIcon(getClass().getResource("icons/skalowanie.png"));
+        ImageIcon imgIcon10 = new ImageIcon(getClass().getResource("icons/accuracy.png"));
+
 
         cred = new JButton("<html></html>");
         cred.setIcon(imgIcon);
@@ -107,7 +109,7 @@ public class Menuski extends JMenuBar {
         jpeg.setMaximumSize(new Dimension(30, 30));
 
         decyzja_okno = new JButton("<html></html>");
-        decyzja_okno.setIcon(imgIcon3);
+        decyzja_okno.setIcon(imgIcon10);
         decyzja_okno.setToolTipText("<html>Wyświetl okno decyzji</html>");
         decyzja_okno.setPreferredSize(new Dimension(30, 30));
         decyzja_okno.setMaximumSize(new Dimension(30, 30));
