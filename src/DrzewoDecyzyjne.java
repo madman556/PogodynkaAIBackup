@@ -19,14 +19,14 @@ public class DrzewoDecyzyjne {
         //jeśli tablica przykładów jest pusta to zwracamy drzewo przekazane rekurencyjnie
         if(przyklady.length==1 || przyklady.length==0){
             return def;
-            //jeśli decyzja jest jednorodna (tylko Yes lub tylko No) to zwracamy nowy węzeł z tą decyzją i rodzicem z drzewa przekazanego rekurencyjnie
+        //jeśli decyzja jest jednorodna (tylko Yes lub tylko No) to zwracamy nowy węzeł z tą decyzją i rodzicem z drzewa przekazanego rekurencyjnie
         }else if(iloscY==(przyklady.length-1) || iloscN==(przyklady.length-1)){
             if(iloscY!=0) {
                 return new Drzewo<ElementDrzewa>(new Wezel<ElementDrzewa>(def.getKorzen().getRodzic(), new Decyzja("Yes")));
             }else{
                 return new Drzewo<ElementDrzewa>(new Wezel<ElementDrzewa>(def.getKorzen().getRodzic(), new Decyzja("No")));
             }
-            //jeśli tablica atrybutów jest pusta to zwracamy nowe drzewo z decyzją z pozostałych przykładów oraz rodzicem z drzewa przekazanego rekurencyjnie
+        //jeśli tablica atrybutów jest pusta to zwracamy nowe drzewo z decyzją z pozostałych przykładów oraz rodzicem z drzewa przekazanego rekurencyjnie
         }else if(atrybuty.length==0){
             return new Drzewo<ElementDrzewa>(new Wezel<ElementDrzewa>(def.getKorzen().getRodzic(),decyduj(przyklady)));
         }else{

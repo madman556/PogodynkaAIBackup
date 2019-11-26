@@ -15,7 +15,7 @@ public class Zapis {
 
     public static void zapisDoPlkiu(ElementDrzewa tablica[][],String sciezka,String plik) throws FileNotFoundException {
 
-        String save;
+       String save;
         try {
             PrintWriter zapis = new PrintWriter(sciezka + "." + plik);
             //zapis.print("Day,");
@@ -33,7 +33,7 @@ public class Zapis {
                     //         }
 
                 }
-                zapis.println();
+               zapis.println();
             }
             zapis.close();
 
@@ -47,23 +47,23 @@ public class Zapis {
                         System.out.println(line);
                         System.out.println(line.substring(0,line.length()-1));
 
-                        FileWriter.write(line.substring(0,line.length()-1));
-                        FileWriter.newLine();
+                       FileWriter.write(line.substring(0,line.length()-1));
+                       FileWriter.newLine();
                     }
 
                 }
                 FileWriter.close();
                 File f1 = new File(sciezka+"."+plik);
-                File f2 = new File(sciezka+"1."+plik);
-                boolean a =f1.delete();
-                boolean b = f2.renameTo(f1);
+               File f2 = new File(sciezka+"1."+plik);
+               boolean a =f1.delete();
+              boolean b = f2.renameTo(f1);
             } catch (IOException e) {
                 System.out.println("Problem z dostępem do pliku");
             }
         } catch (IOException ex) {
             System.out.println("Problem z dostępem do pliku");
 
-        }
+            }
 
     }
 
@@ -148,7 +148,7 @@ public class Zapis {
                 if(jpegSave.getFileFilter()== jpegSave.getChoosableFileFilters()[0]){
                     outputfile=new File(path+".jpeg");
                     ImageIO.write(okno, "jpeg", outputfile);
-                }
+                    }
                 if(jpegSave.getFileFilter()== jpegSave.getChoosableFileFilters()[1]){
                     outputfile=new File(path+".jpg");
                     ImageIO.write(okno, "jpg", outputfile);

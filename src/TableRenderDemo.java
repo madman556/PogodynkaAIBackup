@@ -27,7 +27,7 @@
  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+ */ 
 
 /*
  * TableRenderDemo.java requires no other files.
@@ -49,7 +49,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.util.*;
-/**
+/** 
  * TableRenderDemo is just like TableDemo, except that it
  * explicitly initializes column sizes and it uses a combo box
  * as an editor for the Sport column.
@@ -77,7 +77,7 @@ public class TableRenderDemo extends JPanel {
         //          for(int i=0;i<dane_wejsciowe_dane.length;i++)
         //          {
         //              dane[0][i]=dane_wejsciowe_dane[i][0];
-        //
+        //             
         //             }
         Object[][]        dane = dane_wejsciowe_dane;
 
@@ -154,27 +154,27 @@ public class TableRenderDemo extends JPanel {
         int cellWidth = 0;
         Object[] longValues = model.longValues;
         TableCellRenderer headerRenderer =
-                table.getTableHeader().getDefaultRenderer();
+            table.getTableHeader().getDefaultRenderer();
 
         for (int i = 0; i < 5; i++) {
             column = table.getColumnModel().getColumn(i);
 
             comp = headerRenderer.getTableCellRendererComponent(
-                    null, column.getHeaderValue(),
-                    false, false, 0, 0);
+                null, column.getHeaderValue(),
+                false, false, 0, 0);
             headerWidth = comp.getPreferredSize().width;
 
             comp = table.getDefaultRenderer(model.getColumnClass(i)).
-                    getTableCellRendererComponent(
-                            table, longValues[i],
-                            false, false, 0, i);
+            getTableCellRendererComponent(
+                table, longValues[i],
+                false, false, 0, i);
             cellWidth = comp.getPreferredSize().width;
 
             if (DEBUG) {
                 System.out.println("Initializing width of column "
-                        + i + ". "
-                        + "headerWidth = " + headerWidth
-                        + "; cellWidth = " + cellWidth);
+                    + i + ". "
+                    + "headerWidth = " + headerWidth
+                    + "; cellWidth = " + cellWidth);
             }
 
             column.setPreferredWidth(Math.max(headerWidth, cellWidth));
@@ -183,16 +183,16 @@ public class TableRenderDemo extends JPanel {
 
     // setUpSportColumn(table, table.getColumnModel().getColumn(2));
     public void setUpSportColumn(JTable table, int numerkolumny)
-    // TableColumn sportColumn)
+    // TableColumn sportColumn) 
     {
         //Set up the editor for the sport cells.
 
         //         for(int i=0;i<dane_wejsciowe_dane.length;i++){
         //         for(int j=0;j<dane_wejsciowe_dane[i].length;j++){
-        //
-        //
+        //         
+        //         
         //         }
-        //
+        //         
         //         }
 
         JComboBox comboBox = new JComboBox();
@@ -206,7 +206,7 @@ public class TableRenderDemo extends JPanel {
 
         //Set up tool tips for the sport cells.
         DefaultTableCellRenderer renderer =
-                new DefaultTableCellRenderer();
+            new DefaultTableCellRenderer();
         renderer.setToolTipText("Click for combo box");
         sportColumn.setCellRenderer(renderer);
     }
@@ -222,7 +222,7 @@ public class TableRenderDemo extends JPanel {
         private Object[][] data ;
         private DaneWejsciowe klasyfikacja;
         private String[][]                pelna_tabelka_klasyfikacji;
-        //         =
+        //         = 
         //         {
         //         {"Kathy", "Smith",
         //          "Snowboarding", new Integer(5), new Boolean(false)},
@@ -254,13 +254,13 @@ public class TableRenderDemo extends JPanel {
                     if(DEBUG){
                         System.out.println("\n sprawdzene kolumny w ktorej jest decyzja"+decision.equals(kolumny[i]));
                     }
-
+                    
                     this.numer_kolumny_decyzji=i;}
             }
         }
 
         public int getColumnCount() {
-
+         
             return columnNames.length;
         }
 
@@ -318,15 +318,15 @@ public class TableRenderDemo extends JPanel {
             if (DEBUG) {
                 if(value!=null){
                     System.out.println("Setting value at " + row + "," + col
-                            + " to " + value
-                            + " (an instance of "
-                            + value.getClass() + ")");
+                        + " to " + value
+                        + " (an instance of "
+                        + value.getClass() + ")");
                 }}
             else{
                 System.out.println("Setting value at " + row + "," + col
-                        + " to " + value
-                        + " (an instance of "
-                        + "null)");
+                    + " to " + value
+                    + " (an instance of "
+                    + "null)");
             }
             //                     if(value!=null){
             //             data[row][col] = value;
@@ -334,7 +334,7 @@ public class TableRenderDemo extends JPanel {
             //         }
             //         else {
             //             JOptionPane.showMessageDialog(null, "Nie wczytałeś pliku.");
-            //
+            //             
             //         }
             data[row][col] = value;
             fireTableCellUpdated(row, col);
@@ -359,7 +359,7 @@ public class TableRenderDemo extends JPanel {
             if(DEBUG){
                 System.out.print("Wybrane decyzje : ");
                 for (int k=0;k<jakie_decyzje.size();k++){
-                    System.out.print(jakie_decyzje.get(k)+" ");
+                    System.out.print(jakie_decyzje.get(k)+" ");              
                 }
 
             }
@@ -385,7 +385,7 @@ public class TableRenderDemo extends JPanel {
                         }
                     }
                     jakie_w_kolumnie.add(pelna_tabelka_klasyfikacji[i][j].toString());
-                    //
+                    //             
 
                 }
                 if(DEBUG){
@@ -404,12 +404,12 @@ public class TableRenderDemo extends JPanel {
 //                          +"      equals: #"+jakie_decyzje.get(3).equals(jakie_w_kolumnie.get(3).toString()));
 //                     }
                     if(jakie_decyzje.get(0).equals(jakie_w_kolumnie.get(0).toString())&&
-                            jakie_decyzje.get(1).equals(jakie_w_kolumnie.get(1).toString())&&
-                            jakie_decyzje.get(2).equals(jakie_w_kolumnie.get(2).toString())&&
-                            jakie_decyzje.get(3).equals(jakie_w_kolumnie.get(3).toString())){
+                    jakie_decyzje.get(1).equals(jakie_w_kolumnie.get(1).toString())&&
+                    jakie_decyzje.get(2).equals(jakie_w_kolumnie.get(2).toString())&&
+                    jakie_decyzje.get(3).equals(jakie_w_kolumnie.get(3).toString())){
                         czy_decyzja=true;
-                        nr_wiersz = i;
-                        nr_kol= this.numer_kolumny_decyzji;}
+                     nr_wiersz = i;
+                    nr_kol= this.numer_kolumny_decyzji;}
 
                 }
 
@@ -421,10 +421,10 @@ public class TableRenderDemo extends JPanel {
 
             //             if(decyzja){    pelna_tabelka_klasyfikacji[row][numer_kolumny_decyzji] = new Decyzja("Yes");}
             //             else{ pelna_tabelka_klasyfikacji[row][numer_kolumny_decyzji] = new Decyzja("No");}
-            if(decyzja){
+            if(decyzja){  
                 String tak = "yes";
                 data[0][numer_kolumny_decyzji] = tak;}
-            else{
+            else{ 
                 String nie = "no";
                 data[0][numer_kolumny_decyzji] = nie;}
             fireTableCellUpdated(0,numer_kolumny_decyzji);
@@ -479,9 +479,9 @@ public class TableRenderDemo extends JPanel {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI(Wczytywanie.wczytajKlasyfikacjeZPliku("src/test_klasyfikacji.txt"));
-            }
-        });
+                public void run() {
+                    createAndShowGUI(Wczytywanie.wczytajKlasyfikacjeZPliku("src/test_klasyfikacji.txt"));
+                }
+            });
     }
 }

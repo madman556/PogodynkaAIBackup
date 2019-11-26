@@ -11,7 +11,7 @@ import java.util.LinkedList;
 
 public class Wyswietlanie extends JPanel implements ActionListener
 {
-
+    
     static BufferedImage okno;
     JFrame f;
     LinkedList<JButton> listaButton = new LinkedList<JButton>();
@@ -61,8 +61,8 @@ public class Wyswietlanie extends JPanel implements ActionListener
         ustawNasluchZdarzen();
         wyczysc();
     }
-
-    public void wyczysc()
+   
+       public void wyczysc()
     {
         this.removeAll();
 
@@ -72,7 +72,7 @@ public class Wyswietlanie extends JPanel implements ActionListener
         g.setColor(Color.gray);
         g.fillRect(0, 0, okno.getWidth(), okno.getHeight());
         //ustalenie obramowania
-        setBorder(BorderFactory.createLineBorder(Color.gray));
+        setBorder(BorderFactory.createLineBorder(Color.gray)); 
         repaint();
     }
 
@@ -213,7 +213,7 @@ public class Wyswietlanie extends JPanel implements ActionListener
     public void ustawRozmiar(Dimension r)
     {
         okno = new BufferedImage((int)r.getWidth(), (int)r.getHeight(), BufferedImage.TYPE_INT_RGB);
-        setPreferredSize(r);
+        setPreferredSize(r);     
         setMaximumSize(r);
     }
 
@@ -385,7 +385,7 @@ public class Wyswietlanie extends JPanel implements ActionListener
         }
         repaint();*/
         if(wezel.equals(korzen)) {
-            g3.drawString(wezel.toString(), (wezel.getX()-(3*wezel.toString().length())), wezel.getY());
+        g3.drawString(wezel.toString(), (wezel.getX()-(3*wezel.toString().length())), wezel.getY());
 
             button = new JButton("<html>"+wezel.toString()+"<br> E = "+decimalFormat.format(((Atrybut) wezel.getDane()).getEntropia())+"</html>");
             popupMenu = new JPopupMenu("Title");
@@ -413,7 +413,7 @@ public class Wyswietlanie extends JPanel implements ActionListener
             } //list przechowująca dzieci
             while (!lista.isEmpty()){
                 Wezel w = lista.remove(0);
-                g3.drawString(w.toString(), (w.getX()-(3*w.toString().length())), w.getY());
+               g3.drawString(w.toString(), (w.getX()-(3*w.toString().length())), w.getY());
                 button = new JButton(w.toString());
                 if(w.getDane().getClass().getName()=="Atrybut"){
                     button = new JButton("<html>"+w.toString()+"<br>E = "+decimalFormat.format(((Atrybut)w.getDane()).getEntropia())+"</html>");
@@ -465,9 +465,9 @@ public class Wyswietlanie extends JPanel implements ActionListener
     public void rysujPrzyciski(LinkedList lista) {
         int i= 0;
         while (i<lista.size()){
-            JButton b = listaButton.get(i);
-            i++;
-            this.add(b);
+                JButton b = listaButton.get(i);
+                i++;
+                this.add(b);
 
         }
         repaint();
@@ -478,27 +478,27 @@ public class Wyswietlanie extends JPanel implements ActionListener
     public void credits(){
 
         JOptionPane.showMessageDialog(null,"Program napisany w ramach Projektu Zespołowego \n" +
-                        "Wersja : 0.2  Buffalo \n" +
-                        "Autorzy : \n" +
-                        "Główni programiści : \n" +
-                        "Dominik Woźniak \n" +
-                        "Adler Mateusz \n" +
-                        "Testerzy : \n" +
-                        "Jakub Gabryś \n" +
-                        "Marcin Majzner \n" +
-                        "Programista Pomocniczy \n" +
-                        "Damian Staśkiewicz \n" +
-                        "Projektant interfejsu : \n" +
-                        "Adam Witasiak \n" +
-                        "2019, PWSZ KALISZ ",
+                "Wersja : 0.2  Buffalo \n" +
+                "Autorzy : \n" +
+                "Główni programiści : \n" +
+                "Dominik Woźniak \n" +
+                "Adler Mateusz \n" +
+                "Testerzy : \n" +
+                "Jakub Gabryś \n" +
+                "Marcin Majzner \n" +
+                "Programista Pomocniczy \n" +
+                "Damian Staśkiewicz \n" +
+                "Projektant interfejsu : \n" +
+                "Adam Witasiak \n" +
+                "2019, PWSZ KALISZ ",
                 "O Programie",JOptionPane.INFORMATION_MESSAGE);
         //wyczysc();
-        // Graphics2D g2 = (Graphics2D) okno.getGraphics();
+       // Graphics2D g2 = (Graphics2D) okno.getGraphics();
         //g2.setStroke(new BasicStroke(2));
 
-        // g2.setColor(Color.red);
+       // g2.setColor(Color.red);
 
-        // g2.drawString("Program napisany w ramach Projektu Zespołowego",10, 10);
+       // g2.drawString("Program napisany w ramach Projektu Zespołowego",10, 10);
        /* g2.drawString("Wersja : Wczesna (2-gi Sprint) ",10, 20);
         g2.drawString("Autorzy : ",10, 30);
         g2.drawString("Główni programiści :  ",10, 40);
@@ -516,12 +516,12 @@ public class Wyswietlanie extends JPanel implements ActionListener
         repaint();
 */
     }
-
+    
     public void show_klasyfikacja(DaneWejsciowe klasyfikacja){
-        String klasyfikacja_txt=klasyfikacja.print_string_format();
-
+            String klasyfikacja_txt=klasyfikacja.print_string_format();
+            
         JOptionPane.showMessageDialog(null, klasyfikacja_txt,"Klasyfikacja",JOptionPane.INFORMATION_MESSAGE);
-
+        
     }
 
     //przesłonięta metoda paintComponent z klasy JPanel do rysowania
@@ -529,7 +529,7 @@ public class Wyswietlanie extends JPanel implements ActionListener
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        //wyrysowanie naszego płótna na panelu
+        //wyrysowanie naszego płótna na panelu 
         g2d.drawImage(okno, 0, 0, this);
 
     }
@@ -645,7 +645,7 @@ public class Wyswietlanie extends JPanel implements ActionListener
 
     }*/
 
-
+    
     public void rysujSkalowanie(Wezel wezel,Wezel korzen) {
         DecimalFormat decimalFormat = new DecimalFormat("0.00000");
         Graphics2D g = (Graphics2D) okno.getGraphics();
@@ -698,7 +698,7 @@ public class Wyswietlanie extends JPanel implements ActionListener
             } //list przechowująca dzieci
             while (!lista.isEmpty()){
                 Wezel w = lista.remove(0);
-                // g3.drawString(w.toString(), (w.getX()-(3*w.toString().length())), w.getY());
+               // g3.drawString(w.toString(), (w.getX()-(3*w.toString().length())), w.getY());
                 button = new JButton(w.toString());
                 if(w.getDane().getClass().getName()=="Atrybut"){
                     button = new JButton("<html>"+w.toString()+"<br>E = "+decimalFormat.format(((Atrybut)w.getDane()).getEntropia())+"</html>");
@@ -770,7 +770,7 @@ public class Wyswietlanie extends JPanel implements ActionListener
 
     public void dajDroge(Wezel wezel) {
         if(wezel.getRodzic() != null) {
-            // System.out.print(wezel.toString() + "-");
+           // System.out.print(wezel.toString() + "-");
             dajDroge(wezel.getRodzic());
         }
         else{
@@ -780,7 +780,7 @@ public class Wyswietlanie extends JPanel implements ActionListener
 
     public LinkedList dajDrogeM(Wezel wezel,LinkedList lista) {
         if(wezel.getRodzic() != null) {
-            // System.out.print(wezel.toString() + "-");
+           // System.out.print(wezel.toString() + "-");
             dajDrogeM(wezel.getRodzic(),lista);
         }
         else{

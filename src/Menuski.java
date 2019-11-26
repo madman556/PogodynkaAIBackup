@@ -35,7 +35,7 @@ import java.awt.event.KeyEvent;
 public class Menuski extends JMenuBar
 {
     public JButton wycz, wyś,skalowanie, zam, zal, cred, save,tree, klasyfikacja_z_pliku, show_klasyfikacja, jpeg, pokaz,decyzja_okno;
-    public JLabel zbior;
+public JLabel zbior;
     public JTextArea rekord;
     public JTextField rekord2;
     public JLabel glebokosc;
@@ -166,12 +166,12 @@ public class Menuski extends JMenuBar
 
 
         //rekord = new JTextArea(TA_ROWS, TA_COLS);
-        // rekord.setPreferredSize(new Dimension(50, 20));
+       // rekord.setPreferredSize(new Dimension(50, 20));
         //rekord.setMaximumSize(new Dimension(50, 20));
-        // rekord.setMargin( new Insets(0,10,0,10) );
-        // rekord.setWrapStyleWord(true);
-        // rekord.setLineWrap(true);
-        // rekord.setDocument(new Rekord(4));
+       // rekord.setMargin( new Insets(0,10,0,10) );
+       // rekord.setWrapStyleWord(true);
+       // rekord.setLineWrap(true);
+       // rekord.setDocument(new Rekord(4));
         //rekord.setCaretPosition(0);
 
         glebokosc = new JLabel("<html>Określ głębokość</html>");
