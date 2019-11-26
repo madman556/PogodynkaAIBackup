@@ -1,20 +1,52 @@
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.JButton;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
-public class Menuski extends JMenuBar {
-    public JButton wycz, wyś, skalowanie, zam, zal, cred, save, tree, klasyfikacja_z_pliku, show_klasyfikacja, jpeg, pokaz, decyzja_okno;
+import javax.swing.Box;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.border.*;
+import javax.swing.text.DefaultEditorKit;
+import javax.swing.text.JTextComponent;
+import javax.swing.text.PlainDocument;
+import javax.swing.text.TextAction;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+
+public class Menuski extends JMenuBar
+{
+    public JButton wycz, wyś,skalowanie, zam, zal, cred, save,tree, klasyfikacja_z_pliku, show_klasyfikacja, jpeg, pokaz,decyzja_okno;
     public JLabel zbior;
     public JTextArea rekord;
     public JTextField rekord2;
     public JLabel glebokosc;
     public JTextField glebokoscrekord;
 
-    public Menuski() {
+    public Menuski()
+    {
         //JPanel rozklad = new JPanel();
 
 
-        setBorder(new TitledBorder(
+        setBorder(new TitledBorder (
                 new TitledBorder(
                         LineBorder.createGrayLineBorder(),
                         "Menu"),
@@ -32,8 +64,6 @@ public class Menuski extends JMenuBar {
         ImageIcon imgIcon7 = new ImageIcon(getClass().getResource("icons/delete.png"));
         ImageIcon imgIcon8 = new ImageIcon(getClass().getResource("icons/view.png"));
         ImageIcon imgIcon9 = new ImageIcon(getClass().getResource("icons/skalowanie.png"));
-        ImageIcon imgIcon10 = new ImageIcon(getClass().getResource("icons/accuracy.png"));
-
 
         cred = new JButton("<html></html>");
         cred.setIcon(imgIcon);
@@ -109,7 +139,7 @@ public class Menuski extends JMenuBar {
         jpeg.setMaximumSize(new Dimension(30, 30));
 
         decyzja_okno = new JButton("<html></html>");
-        decyzja_okno.setIcon(imgIcon10);
+        decyzja_okno.setIcon(imgIcon3);
         decyzja_okno.setToolTipText("<html>Wyświetl okno decyzji</html>");
         decyzja_okno.setPreferredSize(new Dimension(30, 30));
         decyzja_okno.setMaximumSize(new Dimension(30, 30));
@@ -119,17 +149,18 @@ public class Menuski extends JMenuBar {
         zbior.setPreferredSize(new Dimension(110, 30));
         zbior.setMaximumSize(new Dimension(110, 30));
         Border border = zbior.getBorder();
-        Border margin = new EmptyBorder(10, 10, 10, 10);
+        Border margin = new EmptyBorder(10,10,10,10);
         zbior.setBorder(new CompoundBorder(border, margin));
+
 
 
         int TA_ROWS = 1;
         int TA_COLS = 1;
 
-        rekord2 = new JTextField("", 1);
+        rekord2 = new JTextField("",1);
         rekord2.setPreferredSize(new Dimension(50, 20));
         rekord2.setMaximumSize(new Dimension(50, 20));
-        rekord2.setMargin(new Insets(0, 5, 0, 5));
+        rekord2.setMargin( new Insets(0,5,0,5) );
         rekord2.setDocument(new Rekord(4));
         rekord2.setCaretPosition(0);
 
@@ -148,13 +179,13 @@ public class Menuski extends JMenuBar {
         glebokosc.setPreferredSize(new Dimension(130, 30));
         glebokosc.setMaximumSize(new Dimension(130, 30));
         Border border2 = zbior.getBorder();
-        Border margin2 = new EmptyBorder(10, 10, 10, 10);
+        Border margin2 = new EmptyBorder(10,10,10,10);
         glebokosc.setBorder(new CompoundBorder(border, margin));
 
-        glebokoscrekord = new JTextField("", 1);
+        glebokoscrekord = new JTextField("",1);
         glebokoscrekord.setPreferredSize(new Dimension(50, 20));
         glebokoscrekord.setMaximumSize(new Dimension(50, 20));
-        glebokoscrekord.setMargin(new Insets(0, 5, 0, 5));
+        glebokoscrekord.setMargin( new Insets(0,5,0,5) );
         glebokoscrekord.setDocument(new Rekord(1));
         glebokoscrekord.setCaretPosition(0);
 

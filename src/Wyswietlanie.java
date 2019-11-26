@@ -9,23 +9,23 @@ import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.util.LinkedList;
 
-public class Wyswietlanie extends JPanel implements ActionListener {
+public class Wyswietlanie extends JPanel implements ActionListener
+{
 
     static BufferedImage okno;
     JFrame f;
-    LinkedList<PrzyciskDrzewo> listaButton = new LinkedList<PrzyciskDrzewo>();
+    LinkedList<JButton> listaButton = new LinkedList<JButton>();
     JPopupMenu popupMenu = new JPopupMenu("Title");
     PrzyciskMenu zmien_nazweMenuItem = new PrzyciskMenu("Zmień nazwę");
-    PrzyciskDrzewo dajDroge = new PrzyciskDrzewo("Droga");
+    PrzyciskMenu dajDroge_MenuItem = new PrzyciskMenu("Droga");
     PrzyciskMenu usun_MenuItem = new PrzyciskMenu("Usuń");
-    //Wezel wezeldobutton = new Wezel();
     Okno o;
     LinkedList<Wezel> wezly = new LinkedList<>();
     LinkedList<Wezel> wezlyN = new LinkedList<>();
-    LinkedList<Wezel> wezlyDroga = new LinkedList<>();
 
     //konstruktor
-    public Wyswietlanie() {
+    public Wyswietlanie()
+    {
         super();
         //Dynamiczne dopasowanie do ekranu dla 1 monitora
         /*Dimension Rozmiar = Toolkit.getDefaultToolkit().getScreenSize();
@@ -57,15 +57,16 @@ public class Wyswietlanie extends JPanel implements ActionListener {
 
         //setLayout(new GridLayout(2,1));
         //ustawRozmiar(new Dimension(szerokosc,wysokosc));
-        ustawRozmiar(new Dimension(1200, 1200));
+        ustawRozmiar(new Dimension(1200,1200));
         ustawNasluchZdarzen();
         wyczysc();
     }
 
-    public void wyczysc() {
+    public void wyczysc()
+    {
         this.removeAll();
 
-        listaButton = new LinkedList<PrzyciskDrzewo>();
+        listaButton = new LinkedList<JButton>();
         //wyrysowanie białego tła
         Graphics2D g = (Graphics2D) okno.getGraphics();
         g.setColor(Color.gray);
@@ -75,7 +76,8 @@ public class Wyswietlanie extends JPanel implements ActionListener {
         repaint();
     }
 
-    private void ustawNasluchZdarzen() {
+    private void ustawNasluchZdarzen()
+    {
         zmien_nazweMenuItem.addActionListener(this);
         usun_MenuItem.addActionListener(this);
     }
@@ -93,9 +95,6 @@ public class Wyswietlanie extends JPanel implements ActionListener {
                 if (dialgOptionn != null) {
                     System.out.println(dialgOptionn);
                     ElementDrzewa[][] tmp = o.daneWejsciowe.get_klasyfikacja();
-                    ElementDrzewa[][] tmpUcz = o.daneWejsciowe.getZbiorUczacy();
-                    ElementDrzewa[][] tmpTest = o.daneWejsciowe.getZbiorTestowy();
-                    DaneWejsciowe daneWejsciowe = new DaneWejsciowe();
                     if (tmp != null) {
                         for (int i = 0; i < tmp.length; i++) {
                             for (int j = 0; j < tmp[i].length; j++) {
@@ -107,36 +106,8 @@ public class Wyswietlanie extends JPanel implements ActionListener {
 
                             }
                         }
-                        daneWejsciowe = new DaneWejsciowe(tmp);
+                        o.setDaneWejsciowe(new DaneWejsciowe(tmp));
                     }
-                    if (tmpUcz != null) {
-                        for (int i = 0; i < tmpUcz.length; i++) {
-                            for (int j = 0; j < tmpUcz[i].length; j++) {
-                                if (tmpUcz[i][j].toString().equals(elementDrzewaa.toString())) {
-                                    ElementDrzewa tmpp = tmpUcz[i][j];
-                                    tmpp.setNazwa(dialgOptionn);
-                                    tmpUcz[i][j] = tmpp;
-                                }
-
-                            }
-                        }
-                        daneWejsciowe.setZbiorUczacy(tmpUcz);
-                    }
-                    if (tmpTest != null) {
-                        for (int i = 0; i < tmpTest.length; i++) {
-                            for (int j = 0; j < tmpTest[i].length; j++) {
-                                if (tmpTest[i][j].toString().equals(elementDrzewaa.toString())) {
-                                    ElementDrzewa tmpp = tmpTest[i][j];
-                                    tmpp.setNazwa(dialgOptionn);
-                                    tmpTest[i][j] = tmpp;
-                                }
-
-                            }
-                        }
-                        daneWejsciowe.setZbiorTestowy(tmpTest);
-                    }
-                    daneWejsciowe.opcje();
-                    o.setDaneWejsciowe(daneWejsciowe);
                     o.actionPerformed(new ActionEvent(o.menu.wycz, ActionEvent.ACTION_PERFORMED, null));
                     o.actionPerformed(new ActionEvent(o.menu.wyś, ActionEvent.ACTION_PERFORMED, null));
                     Tabela tabela = new Tabela(o.daneWejsciowe.get_klasyfikacja());
@@ -167,9 +138,6 @@ public class Wyswietlanie extends JPanel implements ActionListener {
                 int dialogOption = JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz usunąć element " + elementDrzewa + "?");
                 if (dialogOption == JOptionPane.YES_OPTION) {
                     ElementDrzewa[][] tmp = o.daneWejsciowe.get_klasyfikacja();
-                    ElementDrzewa[][] tmpUcz = o.daneWejsciowe.getZbiorUczacy();
-                    ElementDrzewa[][] tmpTest = o.daneWejsciowe.getZbiorTestowy();
-                    DaneWejsciowe daneWejsciowe = new DaneWejsciowe();
                     if (tmp != null) {
                         if (elementDrzewa.getClass().getName().equals("Atrybut")) {
                             int kolumna = 0;
@@ -188,42 +156,7 @@ public class Wyswietlanie extends JPanel implements ActionListener {
                                 }
                                 k = 0;
                             }
-                            daneWejsciowe = new DaneWejsciowe(nowyTmp);
-                            kolumna = 0;
-                            for (int i = 0; i < tmpUcz[0].length; i++) {
-                                if (tmpUcz[0][i].toString().equals(elementDrzewa.toString())) {
-                                    kolumna = i;
-                                }
-                            }
-                            nowyTmp = new ElementDrzewa[tmpUcz.length][tmpUcz[0].length - 1];
-                            k = 0;
-                            for (int i = 0; i < tmpUcz.length; i++) {
-                                for (int j = 0; j < tmpUcz[i].length; j++) {
-                                    if (j != kolumna) {
-                                        nowyTmp[i][k++] = tmpUcz[i][j];
-                                    }
-                                }
-                                k = 0;
-                            }
-                            daneWejsciowe.setZbiorUczacy(tmpUcz);
-                            kolumna = 0;
-                            for (int i = 0; i < tmpTest[0].length; i++) {
-                                if (tmpTest[0][i].toString().equals(elementDrzewa.toString())) {
-                                    kolumna = i;
-                                }
-                            }
-                            nowyTmp = new ElementDrzewa[tmpTest.length][tmpTest[0].length - 1];
-                            k = 0;
-                            for (int i = 0; i < tmpTest.length; i++) {
-                                for (int j = 0; j < tmpTest[i].length; j++) {
-                                    if (j != kolumna) {
-                                        nowyTmp[i][k++] = tmpTest[i][j];
-                                    }
-                                }
-                                k = 0;
-                            }
-                            daneWejsciowe.setZbiorTestowy(tmpTest);
-                            o.setDaneWejsciowe(daneWejsciowe);
+                            o.setDaneWejsciowe(new DaneWejsciowe(nowyTmp));
                         } else {
                             int kolumna = 0;
                             int liczWartosc = 0;
@@ -245,51 +178,7 @@ public class Wyswietlanie extends JPanel implements ActionListener {
                                     k++;
                                 }
                             }
-                            daneWejsciowe = new DaneWejsciowe(nowyTmp);
-                            kolumna = 0;
-                            liczWartosc = 0;
-                            for (int i = 0; i < tmpUcz.length; i++) {
-                                for (int j = 0; j < tmpUcz[i].length; j++) {
-                                    if (elementDrzewa.toString().equals(tmpUcz[i][j].toString())) {
-                                        kolumna = j;
-                                        liczWartosc++;
-                                    }
-                                }
-                            }
-                            nowyTmp = new ElementDrzewa[tmpUcz.length - liczWartosc][tmpUcz[0].length];
-                            k = 0;
-                            for (int i = 0; i < tmpUcz.length; i++) {
-                                if (!tmpUcz[i][kolumna].toString().equals(elementDrzewa.toString())) {
-                                    for (int j = 0; j < tmpUcz[i].length; j++) {
-                                        nowyTmp[k][j] = tmpUcz[i][j];
-                                    }
-                                    k++;
-                                }
-                            }
-                            daneWejsciowe.setZbiorUczacy(nowyTmp);
-                            kolumna = 0;
-                            liczWartosc = 0;
-                            for (int i = 0; i < tmpTest.length; i++) {
-                                for (int j = 0; j < tmpTest[i].length; j++) {
-                                    if (elementDrzewa.toString().equals(tmpTest[i][j].toString())) {
-                                        kolumna = j;
-                                        liczWartosc++;
-                                    }
-                                }
-                            }
-                            nowyTmp = new ElementDrzewa[tmpTest.length - liczWartosc][tmpTest[0].length];
-                            k = 0;
-                            for (int i = 0; i < tmpTest.length; i++) {
-                                if (!tmpTest[i][kolumna].toString().equals(elementDrzewa.toString())) {
-                                    for (int j = 0; j < tmpTest[i].length; j++) {
-                                        nowyTmp[k][j] = tmpTest[i][j];
-                                    }
-                                    k++;
-                                }
-                            }
-                            daneWejsciowe.setZbiorTestowy(nowyTmp);
-                            daneWejsciowe.opcje();
-                            o.setDaneWejsciowe(daneWejsciowe);
+                            o.setDaneWejsciowe(new DaneWejsciowe(nowyTmp));
                         }
                         o.actionPerformed(new ActionEvent(o.menu.wycz, ActionEvent.ACTION_PERFORMED, null));
                         o.actionPerformed(new ActionEvent(o.menu.wyś, ActionEvent.ACTION_PERFORMED, null));
@@ -314,131 +203,45 @@ public class Wyswietlanie extends JPanel implements ActionListener {
                 }
             }
         } else if (label == "Droga") {
-            //PrzyciskMenu przyciskMenu = (PrzyciskMenu) zrodlo;
-            PrzyciskDrzewo przyciskDrzewo = (PrzyciskDrzewo) zrodlo;
-            Wezel wezel = przyciskDrzewo.getWezel();
-            wezlyDroga = new LinkedList<>();
-            wezlyDroga = dajDrogeM(wezel,wezlyDroga);
-            ElementDrzewa elementDrzewa[][] = o.daneWejsciowe.getZbiorUczacy();
-            var szerokość = 0;
-            for(int g=0;g<1;g++){
-                for(int f=0;f<elementDrzewa[g].length;f++){
-                    szerokość++;
-                }
-            }
-            ElementDrzewa elementJtable[][] = new ElementDrzewa[elementDrzewa.length][szerokość];
-            //ElementDrzewa elementDrzewa = przyciskMenu.getElement();
-           // dajDrogeO(o.lista, elementDrzewa.toString());
-            String nazwa;
-           for(int o=1;o<wezlyDroga.size();o=o+2) {
-                nazwa = wezlyDroga.get(o).toString();
-                for (int i = 0; i < elementDrzewa.length; i++) {
-                    if(i==0){
-                        for (int x = 0; x < elementDrzewa[i].length; x++) {
-                            elementJtable[i][x] = elementDrzewa[i][x];
-                        }
-                    }
-                    for (int j = 0; j < elementDrzewa[i].length-1; j++) {
-
-                            if(nazwa.equals(elementDrzewa[i][j].toString())) {
-                                for (int p = 0; p < elementDrzewa[i].length; p++) {
-                                    elementJtable[i][p] = elementDrzewa[i][p];
-                                }
-                                break;
-                            }
-                    }
-
-
-               }
-               ElementDrzewa elementTnmp[][] = new ElementDrzewa[elementJtable.length][szerokość];
-                var licznik =0;
-                for(int k=0;k<elementJtable.length;k++){
-                    if(elementJtable[k][0]!=null){
-
-                    for(int u=0;u<elementJtable[k].length;u++) {
-                        elementTnmp[licznik][u] = elementJtable[k][u];
-
-                    }
-                        licznik++;
-
-                    }
-                }
-
-                elementJtable = new ElementDrzewa[licznik][szerokość];
-               licznik = 0;
-               for(int l=0;l<elementJtable.length;l++){
-                   for(int h=0;h<elementJtable[l].length;h++){
-                       elementJtable[l][h]=elementTnmp[l][h];
-                   }
-               }
-               elementDrzewa = new ElementDrzewa[elementJtable.length][szerokość];
-               for(int a=0;a<elementDrzewa.length;a++){
-                   for(int z=0;z<elementDrzewa[a].length;z++){
-                       elementDrzewa[a][z]=elementJtable[a][z];
-                   }
-               }
-               elementJtable = new ElementDrzewa[elementDrzewa.length][szerokość];
-            }
-            o.p.remove(o.p2);
-            Tabela tabela = new Tabela(elementDrzewa);
-            JTable tabelaWyswietl = tabela.getTabela();
-            tabelaWyswietl.setFillsViewportHeight(true);
-            o.p2 = new JPanel();
-            o.p2.add(new JScrollPane(tabelaWyswietl));
-            o.p2.setBorder(new TitledBorder(
-                    new TitledBorder(
-                            LineBorder.createGrayLineBorder(),
-                            "Dane"),
-                    "",
-                    TitledBorder.RIGHT,
-                    TitledBorder.BOTTOM));
-            o.p2.setMaximumSize(new Dimension(500, 500));
-            o.p.add(o.p2, BorderLayout.EAST);
-            o.dopasujSieDoZawartosci();
-            o.f.setVisible(true);
-            o.czyPrawyPanel = true;
-
-           // for(int d=0;d<elementDrzewa.length;d++){
-           //     for(int s=0;s<elementDrzewa[d].length;s++){
-           //         System.out.print(elementDrzewa[d][s].toString()+" ");
-           //     }
-            //    System.out.println();
-           // }
-
+            PrzyciskMenu przyciskMenu = (PrzyciskMenu) zrodlo;
+            ElementDrzewa elementDrzewa = przyciskMenu.getElement();
+            dajDrogeO(o.lista,elementDrzewa.toString());
+            System.out.println();
         }
     }
 
-    public void ustawRozmiar(Dimension r) {
-        okno = new BufferedImage((int) r.getWidth(), (int) r.getHeight(), BufferedImage.TYPE_INT_RGB);
+    public void ustawRozmiar(Dimension r)
+    {
+        okno = new BufferedImage((int)r.getWidth(), (int)r.getHeight(), BufferedImage.TYPE_INT_RGB);
         setPreferredSize(r);
         setMaximumSize(r);
     }
 
-    public void obliczanieWspozednych(Wezel wezel, Wezel korzen) {
-        if (wezel.equals(korzen)) {
+    public void obliczanieWspozednych(Wezel wezel,Wezel korzen){
+        if(wezel.equals(korzen)) {
             wezel.setX((wezel.getKoniecDostepnegoMiejsca() - wezel.getPoczatekDostepnegoMiejsca()) / 2);
         }
         int liczbaDzieci = wezel.getLiczbaDzieci(); //liczba dzieci rodzica wpowadzanego do metody
-        int dostepnaPrzestrzen = (wezel.getKoniecDostepnegoMiejsca() - wezel.getPoczatekDostepnegoMiejsca()) / liczbaDzieci; //określenie ile przestrzeni(serokości) będą miały dzieci rodzica wprowadzonego do metody
+        int dostepnaPrzestrzen = (wezel.getKoniecDostepnegoMiejsca() - wezel.getPoczatekDostepnegoMiejsca())/liczbaDzieci; //określenie ile przestrzeni(serokości) będą miały dzieci rodzica wprowadzonego do metody
         int koniecDostepnegoMiejsca = 0; //pomocnicza zmienna(nigdy nie zostanie użysta z wartością 0)
-        for (int i = 0; i < liczbaDzieci; i++) {
+        for(int i=0; i<liczbaDzieci; i++){
             Wezel d = wezel.getDziecko(i); //zwrócenie pierwszego dziecka(dzieci liczone od 0)
-            if (i == 0) //dla piewszego dziecka zawsze dostępne miejsce będzie zaczynało się od współrzędnych początka dostępnego miejsca rodzca
+            if(i==0) //dla piewszego dziecka zawsze dostępne miejsce będzie zaczynało się od współrzędnych początka dostępnego miejsca rodzca
                 d.setPoczatekDostepnegoMiejsca(d.getRodzic().getPoczatekDostepnegoMiejsca()); //ustalenie początka dostępnego miejsca dla dziecka
             else
                 d.setPoczatekDostepnegoMiejsca(koniecDostepnegoMiejsca); //dla dzieci innych niż na pozycji 0(pierwsze dziecko) początek dostępnego miejca będzie zaczynał się tam gdzie kończy się dostępne miejsce poprzedniego dziecka
             koniecDostepnegoMiejsca = d.getPoczatekDostepnegoMiejsca() + dostepnaPrzestrzen; //ustalenie końca dostępnego miejsca poprzez dodanie wyliczonej odległości do początku dostępnego miejsca
             d.setKoniecDostepnegoMiejsca(koniecDostepnegoMiejsca); //zapisanie końca dostępnego miejsca do węzła
-            d.setX(((d.getKoniecDostepnegoMiejsca() - d.getPoczatekDostepnegoMiejsca()) / 2) + d.getPoczatekDostepnegoMiejsca()); //określenie współrzednej x
+            d.setX(((d.getKoniecDostepnegoMiejsca() - d.getPoczatekDostepnegoMiejsca())/2)+d.getPoczatekDostepnegoMiejsca()); //określenie współrzednej x
         }
         LinkedList<Wezel> lista = new LinkedList<Wezel>();
-        for (int i = 0; i < wezel.getDzieci().size(); i++) {
+        for(int i=0; i<wezel.getDzieci().size(); i++){
             lista.add((Wezel) wezel.getDzieci().get(i));
         } //list przechowująca dzieci
-        while (!lista.isEmpty()) {
+        while (!lista.isEmpty()){
             Wezel p = lista.remove(0);
-            if (!p.czyLisc()) {
-                obliczanieWspozednych(p, korzen); //wykonanie rekurencjsi
+            if(!p.czyLisc()){
+                obliczanieWspozednych(p,korzen); //wykonanie rekurencjsi
             }
         }
 
@@ -446,27 +249,28 @@ public class Wyswietlanie extends JPanel implements ActionListener {
     }
 
 
-    public void obliczanieWspozednychY(Wezel wezel, int podzial, Drzewo drzewo, Wezel korzen) {
-        if (wezel.equals(korzen)) {
 
-            wezel.setY((drzewo.getLevel(wezel) + 1) * podzial);
+    public void obliczanieWspozednychY(Wezel wezel, int podzial,Drzewo drzewo,Wezel korzen){
+        if(wezel.equals(korzen)) {
+
+            wezel.setY((drzewo.getLevel(wezel)+1)*podzial);
         }
-        if (!wezel.czyLisc()) {
+        if(!wezel.czyLisc()){
             LinkedList<Wezel> lista = new LinkedList<Wezel>();
-            for (int i = 0; i < wezel.getDzieci().size(); i++) {
+            for(int i=0; i<wezel.getDzieci().size(); i++){
                 lista.add((Wezel) wezel.getDzieci().get(i));
             } //list przechowująca dzieci
-            while (!lista.isEmpty()) {
+            while (!lista.isEmpty()){
                 Wezel w = lista.remove(0);
-                w.setY((drzewo.getLevel(w) + 1) * podzial);
-                obliczanieWspozednychY(w, podzial, drzewo, korzen);
+                w.setY((drzewo.getLevel(w)+1)*podzial);
+                obliczanieWspozednychY(w,podzial,drzewo,korzen);
             }
         }
 
 
     }
 
-    public void rysujDrzewo(Wezel wezel, Wezel korzen) {
+    public void rysujDrzewo(Wezel wezel,Wezel korzen) {
         DecimalFormat decimalFormat = new DecimalFormat("0.00000");
         Graphics2D g = (Graphics2D) okno.getGraphics();
         g.setStroke(new BasicStroke(2));
@@ -474,7 +278,7 @@ public class Wyswietlanie extends JPanel implements ActionListener {
         Graphics2D g3 = (Graphics2D) okno.getGraphics();
         g3.setStroke(new BasicStroke(2));
         g3.setColor(Color.white);
-        PrzyciskDrzewo button;
+        JButton button;
         this.setLayout(null);
         //JTextField jtext;
         popupMenu = new JPopupMenu("Title");
@@ -482,8 +286,8 @@ public class Wyswietlanie extends JPanel implements ActionListener {
         zmien_nazweMenuItem.addActionListener(this);
         usun_MenuItem = new PrzyciskMenu("Usuń");
         usun_MenuItem.addActionListener(this);
-        dajDroge= new PrzyciskDrzewo("Droga");
-        dajDroge.addActionListener(this);
+        dajDroge_MenuItem = new PrzyciskMenu("Droga");
+        dajDroge_MenuItem.addActionListener(this);
 
         usun_MenuItem.setForeground(Color.red);
         popupMenu.add(zmien_nazweMenuItem);
@@ -580,23 +384,21 @@ public class Wyswietlanie extends JPanel implements ActionListener {
 
         }
         repaint();*/
-        if (wezel.equals(korzen)) {
-            g3.drawString(wezel.toString(), (wezel.getX() - (3 * wezel.toString().length())), wezel.getY());
+        if(wezel.equals(korzen)) {
+            g3.drawString(wezel.toString(), (wezel.getX()-(3*wezel.toString().length())), wezel.getY());
 
-            button = new PrzyciskDrzewo("<html>" + wezel.toString() + "<br> E = " + decimalFormat.format(((Atrybut) wezel.getDane()).getEntropia()) + "</html>");
+            button = new JButton("<html>"+wezel.toString()+"<br> E = "+decimalFormat.format(((Atrybut) wezel.getDane()).getEntropia())+"</html>");
             popupMenu = new JPopupMenu("Title");
             usun_MenuItem.setElement((ElementDrzewa) wezel.getDane());
             zmien_nazweMenuItem.setElement((ElementDrzewa) wezel.getDane());
             popupMenu.add(zmien_nazweMenuItem);
             popupMenu.addSeparator();
             popupMenu.add(usun_MenuItem);
-
-
             button.setHorizontalAlignment(SwingConstants.CENTER);
             button.setForeground(Color.white);
             button.setBackground(Color.blue);
             button.setBounds((wezel.getX() - decimalFormat.format((Double) ((Atrybut) wezel.getDane()).getEntropia()).length() * 6), wezel.getY() - 20, decimalFormat.format((Double) ((Atrybut) wezel.getDane()).getEntropia()).length() * 13, 40);
-            button.setMargin(new Insets(0, 0, 0, 0));
+            button.setMargin(new Insets(0,0,0,0));
             button.setVisible(true);
             button.setComponentPopupMenu(popupMenu);
 
@@ -604,17 +406,17 @@ public class Wyswietlanie extends JPanel implements ActionListener {
             listaButton.add(button);
 
         }
-        if (!wezel.czyLisc()) {
+        if(!wezel.czyLisc()){
             LinkedList<Wezel> lista = new LinkedList<Wezel>();
-            for (int i = 0; i < wezel.getDzieci().size(); i++) {
+            for(int i=0; i<wezel.getDzieci().size(); i++){
                 lista.add((Wezel) wezel.getDzieci().get(i));
             } //list przechowująca dzieci
-            while (!lista.isEmpty()) {
+            while (!lista.isEmpty()){
                 Wezel w = lista.remove(0);
-                g3.drawString(w.toString(), (w.getX() - (3 * w.toString().length())), w.getY());
-                button = new PrzyciskDrzewo(w.toString());
-                if (w.getDane().getClass().getName() == "Atrybut") {
-                    button = new PrzyciskDrzewo("<html>" + w.toString() + "<br>E = " + decimalFormat.format(((Atrybut) w.getDane()).getEntropia()) + "</html>");
+                g3.drawString(w.toString(), (w.getX()-(3*w.toString().length())), w.getY());
+                button = new JButton(w.toString());
+                if(w.getDane().getClass().getName()=="Atrybut"){
+                    button = new JButton("<html>"+w.toString()+"<br>E = "+decimalFormat.format(((Atrybut)w.getDane()).getEntropia())+"</html>");
                     popupMenu = new JPopupMenu("Title");
                     usun_MenuItem.setElement((ElementDrzewa) w.getDane());
                     zmien_nazweMenuItem.setElement((ElementDrzewa) w.getDane());
@@ -623,10 +425,7 @@ public class Wyswietlanie extends JPanel implements ActionListener {
                     popupMenu.add(usun_MenuItem);
                     button.setComponentPopupMenu(popupMenu);
                     button.setBackground(Color.blue);
-
-
-                } else if (w.getDane().getClass().getName() == "WartoscAtrybutu") {
-                    button = new PrzyciskDrzewo(w.toString());
+                }else if(w.getDane().getClass().getName()=="WartoscAtrybutu"){
                     popupMenu = new JPopupMenu("Title");
                     usun_MenuItem.setElement((ElementDrzewa) w.getDane());
                     zmien_nazweMenuItem.setElement((ElementDrzewa) w.getDane());
@@ -635,30 +434,27 @@ public class Wyswietlanie extends JPanel implements ActionListener {
                     popupMenu.add(usun_MenuItem);
                     button.setComponentPopupMenu(popupMenu);
                     button.setBackground(Color.green);
-
-                } else {
+                }else{
                     popupMenu = new JPopupMenu("Title");
-                    dajDroge.setWezel((Wezel)w);
-                    popupMenu.add(dajDroge);
+                    dajDroge_MenuItem.setElement((ElementDrzewa) w.getDane());
+
+                    popupMenu.add(dajDroge_MenuItem);
                     button.setComponentPopupMenu(popupMenu);
                     button.setBackground(Color.cyan);
-                    button.setWezel(w);
-
-
                 }
                 button.setForeground(Color.white);
-                button.setBounds((w.getX() - w.toString().length() * 6), w.getY() - 20, w.toString().length() * 13, 30);
-                if (w.getDane().getClass().getName() == "Atrybut") {
+                button.setBounds((w.getX()-w.toString().length()*6), w.getY()-20,w.toString().length()*13,30);
+                if(w.getDane().getClass().getName()=="Atrybut"){
                     button.setBounds((w.getX() - decimalFormat.format((Double) ((Atrybut) w.getDane()).getEntropia()).length() * 6), w.getY() - 20, decimalFormat.format((Double) ((Atrybut) w.getDane()).getEntropia()).length() * 13, 40);
                 }
-                button.setMargin(new Insets(0, 0, 0, 0));
+                button.setMargin(new Insets(0,0,0,0));
                 button.setVisible(true);
                 //button.setComponentPopupMenu(popupMenu);
                 //this.add(button);
                 listaButton.add(button);
-                Line2D.Double line = new Line2D.Double(w.getX(), w.getY() - 20, w.getRodzic().getX(), w.getRodzic().getY() + 10);
+                Line2D.Double line = new Line2D.Double (w.getX(), w.getY()-20, w.getRodzic().getX(), w.getRodzic().getY()+10);
                 g.draw(line);
-                rysujDrzewo(w, korzen);
+                rysujDrzewo(w,korzen);
             }
         }
 
@@ -666,24 +462,22 @@ public class Wyswietlanie extends JPanel implements ActionListener {
 
     }
 
-    public void rysujPrzyciski(LinkedList<PrzyciskDrzewo> lista) {
-        int i = 0;
-        while (i < lista.size()) {
-            PrzyciskDrzewo b = (PrzyciskDrzewo)lista.get(i);
-
-
+    public void rysujPrzyciski(LinkedList lista) {
+        int i= 0;
+        while (i<lista.size()){
+            JButton b = listaButton.get(i);
             i++;
-            this.add((PrzyciskDrzewo)b);
-
+            this.add(b);
 
         }
         repaint();
     }
 
 
-    public void credits() {
 
-        JOptionPane.showMessageDialog(null, "Program napisany w ramach Projektu Zespołowego \n" +
+    public void credits(){
+
+        JOptionPane.showMessageDialog(null,"Program napisany w ramach Projektu Zespołowego \n" +
                         "Wersja : 0.2  Buffalo \n" +
                         "Autorzy : \n" +
                         "Główni programiści : \n" +
@@ -697,7 +491,7 @@ public class Wyswietlanie extends JPanel implements ActionListener {
                         "Projektant interfejsu : \n" +
                         "Adam Witasiak \n" +
                         "2019, PWSZ KALISZ ",
-                "O Programie", JOptionPane.INFORMATION_MESSAGE);
+                "O Programie",JOptionPane.INFORMATION_MESSAGE);
         //wyczysc();
         // Graphics2D g2 = (Graphics2D) okno.getGraphics();
         //g2.setStroke(new BasicStroke(2));
@@ -723,10 +517,10 @@ public class Wyswietlanie extends JPanel implements ActionListener {
 */
     }
 
-    public void show_klasyfikacja(DaneWejsciowe klasyfikacja) {
-        String klasyfikacja_txt = klasyfikacja.print_string_format();
+    public void show_klasyfikacja(DaneWejsciowe klasyfikacja){
+        String klasyfikacja_txt=klasyfikacja.print_string_format();
 
-        JOptionPane.showMessageDialog(null, klasyfikacja_txt, "Klasyfikacja", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, klasyfikacja_txt,"Klasyfikacja",JOptionPane.INFORMATION_MESSAGE);
 
     }
 
@@ -735,12 +529,12 @@ public class Wyswietlanie extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        //wyrysowanie naszego płótna na panelu 
+        //wyrysowanie naszego płótna na panelu
         g2d.drawImage(okno, 0, 0, this);
 
     }
 
-    public void setOkno(Okno o) {
+    public void setOkno(Okno o){
         this.o = o;
     }
 
@@ -852,7 +646,7 @@ public class Wyswietlanie extends JPanel implements ActionListener {
     }*/
 
 
-    public void rysujSkalowanie(Wezel wezel, Wezel korzen) {
+    public void rysujSkalowanie(Wezel wezel,Wezel korzen) {
         DecimalFormat decimalFormat = new DecimalFormat("0.00000");
         Graphics2D g = (Graphics2D) okno.getGraphics();
         g.setStroke(new BasicStroke(2));
@@ -860,7 +654,7 @@ public class Wyswietlanie extends JPanel implements ActionListener {
         Graphics2D g3 = (Graphics2D) okno.getGraphics();
         g3.setStroke(new BasicStroke(2));
         g3.setColor(Color.white);
-        PrzyciskDrzewo button;
+        JButton button;
         this.setLayout(null);
         //JTextField jtext;
         popupMenu = new JPopupMenu("Title");
@@ -868,18 +662,17 @@ public class Wyswietlanie extends JPanel implements ActionListener {
         zmien_nazweMenuItem.addActionListener(this);
         usun_MenuItem = new PrzyciskMenu("Usuń");
         usun_MenuItem.addActionListener(this);
-        dajDroge= new PrzyciskDrzewo("Droga");
-        dajDroge.addActionListener(this);
+
         usun_MenuItem.setForeground(Color.red);
         popupMenu.add(zmien_nazweMenuItem);
         popupMenu.addSeparator();
         popupMenu.add(usun_MenuItem);
 
 
-        if (wezel.equals(korzen)) {
+        if(wezel.equals(korzen)) {
             //g3.drawString(wezel.toString(), (3*wezel.getX()/4-((3*3*wezel.toString().length()/4))), 3*wezel.getY()/4);
 
-            button = new PrzyciskDrzewo("<html>" + wezel.toString() + "<br> E = " + decimalFormat.format(((Atrybut) wezel.getDane()).getEntropia()) + "</html>");
+            button = new JButton("<html>"+wezel.toString()+"<br> E = "+decimalFormat.format(((Atrybut) wezel.getDane()).getEntropia())+"</html>");
             popupMenu = new JPopupMenu("Title");
             usun_MenuItem.setElement((ElementDrzewa) wezel.getDane());
             zmien_nazweMenuItem.setElement((ElementDrzewa) wezel.getDane());
@@ -889,8 +682,8 @@ public class Wyswietlanie extends JPanel implements ActionListener {
             button.setHorizontalAlignment(SwingConstants.CENTER);
             button.setForeground(Color.white);
             button.setBackground(Color.blue);
-            button.setBounds(((2 * wezel.getX()) / 2 - decimalFormat.format((Double) ((Atrybut) wezel.getDane()).getEntropia()).length() * 15 / 2), (1 * (wezel.getY() - 15)) / 3, decimalFormat.format((Double) ((Atrybut) wezel.getDane()).getEntropia()).length() * 13, 40);
-            button.setMargin(new Insets(0, 0, 0, 0));
+            button.setBounds(((2*wezel.getX())/2 - decimalFormat.format((Double) ((Atrybut) wezel.getDane()).getEntropia()).length() * 15/2), (1*(wezel.getY() - 15))/3, decimalFormat.format((Double) ((Atrybut) wezel.getDane()).getEntropia()).length() * 13, 40);
+            button.setMargin(new Insets(0,0,0,0));
             button.setVisible(true);
             button.setComponentPopupMenu(popupMenu);
 
@@ -898,17 +691,17 @@ public class Wyswietlanie extends JPanel implements ActionListener {
             listaButton.add(button);
 
         }
-        if (!wezel.czyLisc()) {
+        if(!wezel.czyLisc()){
             LinkedList<Wezel> lista = new LinkedList<Wezel>();
-            for (int i = 0; i < wezel.getDzieci().size(); i++) {
+            for(int i=0; i<wezel.getDzieci().size(); i++){
                 lista.add((Wezel) wezel.getDzieci().get(i));
             } //list przechowująca dzieci
-            while (!lista.isEmpty()) {
+            while (!lista.isEmpty()){
                 Wezel w = lista.remove(0);
                 // g3.drawString(w.toString(), (w.getX()-(3*w.toString().length())), w.getY());
-                button = new PrzyciskDrzewo(w.toString());
-                if (w.getDane().getClass().getName() == "Atrybut") {
-                    button = new PrzyciskDrzewo("<html>" + w.toString() + "<br>E = " + decimalFormat.format(((Atrybut) w.getDane()).getEntropia()) + "</html>");
+                button = new JButton(w.toString());
+                if(w.getDane().getClass().getName()=="Atrybut"){
+                    button = new JButton("<html>"+w.toString()+"<br>E = "+decimalFormat.format(((Atrybut)w.getDane()).getEntropia())+"</html>");
                     popupMenu = new JPopupMenu("Title");
                     usun_MenuItem.setElement((ElementDrzewa) w.getDane());
                     zmien_nazweMenuItem.setElement((ElementDrzewa) w.getDane());
@@ -917,7 +710,7 @@ public class Wyswietlanie extends JPanel implements ActionListener {
                     popupMenu.add(usun_MenuItem);
                     button.setComponentPopupMenu(popupMenu);
                     button.setBackground(Color.blue);
-                } else if (w.getDane().getClass().getName() == "WartoscAtrybutu") {
+                }else if(w.getDane().getClass().getName()=="WartoscAtrybutu"){
                     popupMenu = new JPopupMenu("Title");
                     usun_MenuItem.setElement((ElementDrzewa) w.getDane());
                     zmien_nazweMenuItem.setElement((ElementDrzewa) w.getDane());
@@ -926,32 +719,26 @@ public class Wyswietlanie extends JPanel implements ActionListener {
                     popupMenu.add(usun_MenuItem);
                     button.setComponentPopupMenu(popupMenu);
                     button.setBackground(Color.green);
-                } else {
+                }else{
                     button.setBackground(Color.cyan);
-                    popupMenu = new JPopupMenu("Title");
-                    dajDroge.setWezel((Wezel)w);
-                    popupMenu.add(dajDroge);
-                    button.setComponentPopupMenu(popupMenu);
-                    button.setBackground(Color.cyan);
-                    button.setWezel(w);
                 }
                 button.setForeground(Color.white);
                 //wezel.getDane()).getEntropia()).length() * 6 -- w prawo lub lewo
                 //wezel.getY() - 20 -- w dol i  w góre
                 //decimalFormat.format((Double) ((Atrybut) wezel.getDane()).getEntropia()).length() * 13 -- długość
                 // wezel.getDane()).getEntropia()).length() *  40 -- wysokosc
-                button.setBounds((w.getX() - w.toString().length()), (w.getY()) / 2, w.toString().length() * 13, 30);
-                if (w.getDane().getClass().getName() == "Atrybut") {
-                    button.setBounds((w.getX() - decimalFormat.format((Double) ((Atrybut) w.getDane()).getEntropia()).length() * 2), (2 * w.getY() - 3) / 4, decimalFormat.format((Double) ((Atrybut) w.getDane()).getEntropia()).length() * 13, 40);
+                button.setBounds((w.getX()-w.toString().length()), (w.getY())/2,w.toString().length()*13,30);
+                if(w.getDane().getClass().getName()=="Atrybut"){
+                    button.setBounds((w.getX() - decimalFormat.format((Double) ((Atrybut) w.getDane()).getEntropia()).length() * 2), (2*w.getY() - 3)/4, decimalFormat.format((Double) ((Atrybut) w.getDane()).getEntropia()).length() * 13, 40);
                 }
-                button.setMargin(new Insets(0, 0, 0, 0));
+                button.setMargin(new Insets(0,0,0,0));
                 button.setVisible(true);
                 //button.setComponentPopupMenu(popupMenu);
                 //this.add(button);
                 listaButton.add(button);
-                Line2D.Double line = new Line2D.Double((2 * w.getX()) / 2, (1 * w.getY() - 15) / 1.9, (2 * w.getRodzic().getX()) / 2, (w.getRodzic().getY() + 5) / 1.9);
+                Line2D.Double line = new Line2D.Double ((2*w.getX())/2, (1*w.getY()-15)/1.9, (2*w.getRodzic().getX())/2, (w.getRodzic().getY()+5)/1.9);
                 g.draw(line);
-                rysujSkalowanie(w, korzen);
+                rysujSkalowanie(w,korzen);
             }
         }
 
@@ -959,19 +746,21 @@ public class Wyswietlanie extends JPanel implements ActionListener {
 
     }
 
-    public LinkedList dajWezly(Wezel wezel, LinkedList lista) {
+    public LinkedList dajWezly(Wezel wezel,LinkedList lista){
 
-        if (!wezel.czyLisc()) {
+        if(!wezel.czyLisc()) {
             LinkedList<Wezel> listaT = new LinkedList<Wezel>();
             for (int i = 0; i < wezel.getDzieci().size(); i++) {
                 listaT.add((Wezel) wezel.getDzieci().get(i));
             } //list przechowująca dzieci
             while (!listaT.isEmpty()) {
                 Wezel w = listaT.remove(0);
-                if (w.czyLisc()) {
+                if(w.czyLisc()){
                     lista.add(w);
-                } else {
-                    dajWezly(w, lista);
+                }
+                else
+                {
+                    dajWezly(w,lista);
                 }
             }
         }
@@ -980,35 +769,38 @@ public class Wyswietlanie extends JPanel implements ActionListener {
     }
 
     public void dajDroge(Wezel wezel) {
-        if (wezel.getRodzic() != null) {
+        if(wezel.getRodzic() != null) {
             // System.out.print(wezel.toString() + "-");
             dajDroge(wezel.getRodzic());
-        } else {
+        }
+        else{
             //System.out.print(wezel.toString());
         }
     }
 
-    public LinkedList dajDrogeM(Wezel wezel, LinkedList lista) {
-        if (wezel.getRodzic() != null) {
+    public LinkedList dajDrogeM(Wezel wezel,LinkedList lista) {
+        if(wezel.getRodzic() != null) {
             // System.out.print(wezel.toString() + "-");
-            dajDrogeM(wezel.getRodzic(), lista);
-        } else {
+            dajDrogeM(wezel.getRodzic(),lista);
+        }
+        else{
             //System.out.print(wezel.toString());
         }
         lista.add(wezel);
         return lista;
     }
 
-    public void dajDrogeF(LinkedList lista) {
-        for (int i = 0; i < lista.size(); i++) {
-            int j = i;
-            Wezel w = (Wezel) lista.get(i);
-            if (w.czyLisc()) {
-                System.out.print("to D=" + w.toString());
-            } else {
+    public void dajDrogeF(LinkedList lista){
+        for(int i=0; i<lista.size();i++){
+            int j=i;
+            Wezel w = (Wezel)lista.get(i);
+            if(w.czyLisc()){
+                System.out.print("to D="+w.toString());
+            }
+            else {
 
                 Wezel wt = (Wezel) lista.get(i += 1);
-                System.out.print(w.toString() + "=" + wt.toString() + "  ");
+                System.out.print(w.toString() + "=" + wt.toString()+"  ");
             }
 
         }
@@ -1016,18 +808,22 @@ public class Wyswietlanie extends JPanel implements ActionListener {
 
     }
 
-    public void dajDrogeO(LinkedList lista, String decyzja) {
+    public void dajDrogeO(LinkedList lista,String decyzja){
         LinkedList listaM = new LinkedList();
         LinkedList listaMo = new LinkedList();
 
 
-        for (int i = 0; i < lista.size(); i++) {
+
+
+        for(int i=0; i<lista.size(); i++){
+
 
 
             listaMo = dajDrogeM((Wezel) lista.get(i), listaM);
-            Wezel tmp = (Wezel) listaMo.get(listaMo.size() - 1);
-            if (tmp.toString() == decyzja) {
+            Wezel tmp = (Wezel) listaMo.get(listaMo.size()-1);
+            if(tmp.toString()==decyzja) {
                 dajDrogeF(listaMo);
+
 
 
             }
@@ -1035,6 +831,5 @@ public class Wyswietlanie extends JPanel implements ActionListener {
             listaM = new LinkedList();
         }
     }
+
 }
-
-
